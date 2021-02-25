@@ -18,5 +18,4 @@ if __name__ == '__main__':
     # Start recording
     recorder = VideoRecorder()
     recorder.record()
-    time.sleep(3)
-    recorder.stop()
+
