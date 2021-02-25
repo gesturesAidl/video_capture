@@ -1,0 +1,7 @@
+name: gesturesapp
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7.6
+  - opencv
+  - python-dotenv
