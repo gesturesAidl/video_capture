@@ -130,3 +130,6 @@ dmypy.json
 
 # Output videos
 output_videos/
+
+#Pycharm
+.idea

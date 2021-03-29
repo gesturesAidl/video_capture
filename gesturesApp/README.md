@@ -37,3 +37,20 @@ Once created activate the environment by typing:
 ### Update from environment.yml
     
     conda env update --file environment.yml
+
+### Create .env file
+Create a folder with name 'env' inside the project gesturesApp folder and then, create a .env file inside it.
+Copy the following code to your .env file and set the fields with your rabbitmq broker connection parameters: 
+
+    RABBIT_USER="..."
+    RABBIT_PW="..."
+    RABBIT_HOST="..."
+    RABBIT_PORT="..."
+
+### Set the working directory of your app
+In your gestiresApp/app/app.py file, replace the {abs_path_to_your_project} variable in the 'workdir' var assignment to your absolute path to the project. 
+
+### RUN project
+Place yourself in the repository root dir and type: 
+
+    python3 gesturesApp/app/app.py
