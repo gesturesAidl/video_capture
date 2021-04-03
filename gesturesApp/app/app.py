@@ -1,6 +1,7 @@
 import time
 import os
 from pathlib import Path
+import logging
 import sys
 
 workdir = '{abs_path_to_your_project}' + '/aidl_gesture_recognition'
@@ -23,5 +24,6 @@ if __name__ == '__main__':
 
     rabbit_template = RabbitTemplate()
     video_manager = VideoRecorder(rabbit_template)
+    logging.info("[X] Start recording: ")
     video_manager.record()
 
