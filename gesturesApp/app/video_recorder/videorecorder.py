@@ -1,6 +1,8 @@
 import cv2
 import time
 import json
+import logging
+from datetime import datetime
 
 
 class VideoRecorder:
@@ -28,6 +30,7 @@ class VideoRecorder:
 
                 # Publish video
                 json_string = json.dumps([ob.tolist() for ob in data])
+                logging.info("Video sent at: " + str(datetime.now()))
                 self.rabbit_template.publish_video(json_string)
                 k = 0
                 data = []
