@@ -4,11 +4,10 @@ from pathlib import Path
 import logging
 import sys
 
-from gesturesApp.app.controller.gui_controller import GUIController
-
 workdir = '{abs_path_to_your_project}' + '/aidl_gesture_recognition'
 sys.path.insert(0, workdir)
 
+from gesturesApp.app.controller.gui_controller import GUIController
 from gesturesApp.app.video_recorder.videorecorder import VideoRecorder
 from gesturesApp.app.config.RabbitTemplate import RabbitTemplate
 
@@ -21,6 +20,9 @@ def load_env():
 
 
 if __name__ == '__main__':
+
+    logging.getLogger().setLevel(logging.INFO)
+
     # Load environment vars
     load_env()
 

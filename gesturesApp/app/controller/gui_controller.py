@@ -9,7 +9,8 @@ class GUIController:
         self.current_dir = str(Path.home()) + "/AIDL"
         self.file_count = 0
         self.dir_count = 0
-        subprocess.call(["mkdir", self.current_dir])
+        if not os.path.exists(self.current_dir):
+            subprocess.call(["mkdir", self.current_dir])
         self.dir_process_pid = subprocess.Popen(["nautilus", self.current_dir])
         self.files_process_pid = None
         self.popup_pid = None
