@@ -4,7 +4,7 @@ from pathlib import Path
 import logging
 import sys
 
-workdir = '{abs_path_to_your_project}' + '/aidl_gesture_recognition'
+workdir = os.getcwd()
 sys.path.insert(0, workdir)
 
 from gesturesApp.app.controller.gui_controller import GUIController
