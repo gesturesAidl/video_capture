@@ -4,6 +4,8 @@ from pathlib import Path
 import logging
 import sys
 
+from gesturesApp.app.controller.gui_controller import GUIController
+
 workdir = '{abs_path_to_your_project}' + '/aidl_gesture_recognition'
 sys.path.insert(0, workdir)
 
@@ -22,7 +24,8 @@ if __name__ == '__main__':
     # Load environment vars
     load_env()
 
-    rabbit_template = RabbitTemplate()
+    gui_controller = GUIController()
+    rabbit_template = RabbitTemplate(gui_controller)
     video_manager = VideoRecorder(rabbit_template)
     logging.info("[X] Start recording: ")
     video_manager.record()

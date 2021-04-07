@@ -2,6 +2,7 @@ import os
 import pika
 from typing import Optional
 import uuid
+import json
 
 from gesturesApp.app.config.constants.RabbitConstants import RabbitConstants
 
@@ -12,7 +13,8 @@ class RabbitTemplate:
     RABBIT_HOST: Optional[str]
     RABBIT_PORT: Optional[int]
 
-    def __init__(self):
+    def __init__(self, gui_controller):
+        self.gui_controller = gui_controller
         self.load_env()
         credentials = pika.PlainCredentials(self.RABBIT_USER, self.RABBIT_PW)
         self.connection = pika.BlockingConnection(
@@ -51,3 +53,23 @@ class RabbitTemplate:
     def on_response(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
             self.response = body
+            self.map_label_to_action(self.response)
+
+    def map_label_to_action(self, response):
+        response = json.loads(response)
+
+        if response == 'stop_sign':
+            self.gui_controller.create_file()
+        if response == 'thumb_up':
+            self.gui_controller.close_file()
+        if response == 'sliding_down':
+            self.gui_controller.create_dir()
+        if response == 'sliding_up':
+            self.gui_controller.rm_all_in_dir()
+        if response == 'swiping_right':
+            self.gui_controller.move_back_in_dirs()
+        if response == 'swiping_left':
+            self.gui_controller.move_fw_in_dirs()
+        if response == 'turning_clockwise':
+            self.gui_controller.close_info_popup()
+
