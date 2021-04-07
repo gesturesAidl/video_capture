@@ -53,7 +53,7 @@ class RabbitTemplate:
     def on_response(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
             self.response = body
-            self.map_label_to_action(self.response)
+            self.map_label_to_action(self.response['label'])
 
     def map_label_to_action(self, response):
         response = json.loads(response)
