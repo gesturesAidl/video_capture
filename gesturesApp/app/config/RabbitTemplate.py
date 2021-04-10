@@ -53,23 +53,24 @@ class RabbitTemplate:
     def on_response(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
             self.response = body
-            self.map_label_to_action(self.response['label'])
+            self.map_label_to_action(self.response)
 
     def map_label_to_action(self, response):
-        response = json.loads(response)
-
-        if response == 'stop_sign':
-            self.gui_controller.create_file()
+        print(response)
+        response = json.loads(json.loads(response))
+        response = response['label']
         if response == 'thumb_up':
+            self.gui_controller.create_file()
+        if response == 'stop_sign':
             self.gui_controller.close_file()
-        if response == 'sliding_down':
+        if response == 'sliding_two_fingers_down':
             self.gui_controller.create_dir()
-        if response == 'sliding_up':
+        if response == 'sliding_two_fingers_up':
             self.gui_controller.rm_all_in_dir()
         if response == 'swiping_right':
             self.gui_controller.move_back_in_dirs()
         if response == 'swiping_left':
             self.gui_controller.move_fw_in_dirs()
-        if response == 'turning_clockwise':
+        if response == 'turning_hand_clockwise':
             self.gui_controller.close_info_popup()
 

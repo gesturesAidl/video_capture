@@ -64,7 +64,8 @@ class GUIController:
 
     # Close info popup opened to inform of app error
     def close_info_popup(self):
-        subprocess.call(["kill", "-9", str(self.popup_pid.pid)])
+        if self.popup_pid is not None:
+            subprocess.call(["kill", "-9", str(self.popup_pid.pid)])
         self.popup_pid = None
 
     # Open info window with message in @{msg}
