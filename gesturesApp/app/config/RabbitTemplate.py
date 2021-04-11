@@ -63,13 +63,13 @@ class RabbitTemplate:
             self.gui_controller.create_file()
         if response == 'stop_sign':
             self.gui_controller.close_file()
-        if response == 'sliding_two_fingers_down':
-            self.gui_controller.create_dir()
         if response == 'sliding_two_fingers_up':
+            self.gui_controller.create_dir()
+        if response == 'sliding_two_fingers_down':
             self.gui_controller.rm_all_in_dir()
-        if response == 'swiping_right':
-            self.gui_controller.move_back_in_dirs()
         if response == 'swiping_left':
+            self.gui_controller.move_back_in_dirs()
+        if response == 'swiping_right':
             self.gui_controller.move_fw_in_dirs()
         if response == 'turning_hand_clockwise':
             self.gui_controller.close_info_popup()
