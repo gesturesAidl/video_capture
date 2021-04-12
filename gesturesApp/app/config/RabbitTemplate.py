@@ -4,6 +4,7 @@ from typing import Optional
 import uuid
 import json
 
+
 from gesturesApp.app.config.constants.RabbitConstants import RabbitConstants
 
 
@@ -16,6 +17,7 @@ class RabbitTemplate:
     def __init__(self, gui_controller):
         self.gui_controller = gui_controller
         self.load_env()
+        self.resp = None
         credentials = pika.PlainCredentials(self.RABBIT_USER, self.RABBIT_PW)
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(host=self.RABBIT_HOST, port=int(self.RABBIT_PORT), credentials=credentials))
@@ -54,6 +56,7 @@ class RabbitTemplate:
         if self.corr_id == props.correlation_id:
             self.response = body
             self.map_label_to_action(self.response)
+            self.resp = self.response
 
     def map_label_to_action(self, response):
         print(response)
@@ -74,3 +77,6 @@ class RabbitTemplate:
         if response == 'turning_hand_clockwise':
             self.gui_controller.close_info_popup()
 
+
+    def get_response(self):
+        return self.resp

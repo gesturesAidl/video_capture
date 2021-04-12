@@ -18,7 +18,6 @@ def load_env():
     env_path = Path(workdir + '/gesturesApp/env') / '.env'
     load_dotenv(dotenv_path=env_path)
 
-
 if __name__ == '__main__':
 
     logging.getLogger().setLevel(logging.INFO)
@@ -31,4 +30,3 @@ if __name__ == '__main__':
     video_manager = VideoRecorder(rabbit_template)
     logging.info("[X] Start recording: ")
     video_manager.record()
-
