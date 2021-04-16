@@ -17,7 +17,7 @@ class RabbitTemplate:
     def __init__(self, gui_controller):
         self.gui_controller = gui_controller
         self.load_env()
-        self.resp = None
+        self.response = None
         credentials = pika.PlainCredentials(self.RABBIT_USER, self.RABBIT_PW)
         self.connection = pika.BlockingConnection(
             pika.ConnectionParameters(host=self.RABBIT_HOST, port=int(self.RABBIT_PORT), credentials=credentials))
@@ -56,27 +56,32 @@ class RabbitTemplate:
         if self.corr_id == props.correlation_id:
             self.response = body
             self.map_label_to_action(self.response)
-            self.resp = self.response
 
     def map_label_to_action(self, response):
         print(response)
         response = json.loads(json.loads(response))
         response = response['label']
-        if response == 'thumb_up':
-            self.gui_controller.create_file()
-        if response == 'stop_sign':
-            self.gui_controller.close_file()
-        if response == 'sliding_two_fingers_up':
-            self.gui_controller.create_dir()
-        if response == 'sliding_two_fingers_down':
-            self.gui_controller.rm_all_in_dir()
-        if response == 'swiping_left':
-            self.gui_controller.move_back_in_dirs()
-        if response == 'swiping_right':
-            self.gui_controller.move_fw_in_dirs()
-        if response == 'turning_hand_clockwise':
-            self.gui_controller.close_info_popup()
 
+        # If last clip was a gesture, in order to avoid same gesture being performed twice, we pass over the response label.
+        if self.gui_controller.was_last_gesture():
+            self.gui_controller.last_was_no_gesture()
+        else:
+            if response == 'thumb_up':
+                self.gui_controller.create_file()
+            elif response == 'stop_sign':
+                self.gui_controller.close_file()
+            elif response == 'sliding_two_fingers_up':
+                self.gui_controller.create_dir()
+            elif response == 'sliding_two_fingers_down':
+                self.gui_controller.rm_all_in_dir()
+            elif response == 'swiping_left':
+                self.gui_controller.move_back_in_dirs()
+            elif response == 'swiping_right':
+                self.gui_controller.move_fw_in_dirs()
+            elif response == 'turning_hand_clockwise':
+                self.gui_controller.close_info_popup()
+            else:
+                self.gui_controller.last_was_no_gesture()
 
     def get_response(self):
-        return self.resp
+        return self.response

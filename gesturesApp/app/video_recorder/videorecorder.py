@@ -26,12 +26,12 @@ class VideoRecorder:
 
         ########## Uncomment all comments from here on for green/red circle #######
         
-        # radius = 30
-        # center_coordinates = (30, 30)
-        # color = [(0, 255, 0),(0, 0, 255)] # red-green
-        # red = (0, 0, 255)
-        # green = (0, 255, 0)
-        # thickness = -1
+        radius = 30
+        center_coordinates = (30, 30)
+        color = [(0, 255, 0),(0, 0, 255)] # red-green
+        red = (0, 0, 255)
+        green = (0, 255, 0)
+        thickness = -1
 
         while True:
             ret, video_frame = self.video_cap.read()
@@ -43,16 +43,16 @@ class VideoRecorder:
                 x = json.loads(json.loads(tempResp))
                 cv2.putText(video_frame, str(x["label"]), (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 3, (255, 0, 255),2)
             
-            # video_frame = cv2.circle(video_frame, center_coordinates, radius, color[count], thickness)
+            video_frame = cv2.circle(video_frame, center_coordinates, radius, color[count], thickness)
             
             cv2.imshow('Gestures App', video_frame)
             cv2.waitKey(1)
-            if k == self.video_lenght // 2:
+            if k == self.video_lenght:
                 count = (count + 1) % 2
                 
-                # video_frame = cv2.circle(video_frame, center_coordinates, radius, red, thickness)
-                # cv2.imshow('Gestures App', video_frame)
-                # cv2.waitKey(1)
+                video_frame = cv2.circle(video_frame, center_coordinates, radius, red, thickness)
+                cv2.imshow('Gestures App', video_frame)
+                cv2.waitKey(1)
 
                 json_string = json.dumps([ob.tolist() for ob in data])
                 logger.info("Video sent at: " + str(datetime.now()))
@@ -60,9 +60,9 @@ class VideoRecorder:
                 k = 0
                 data = []
                 
-                # video_frame = cv2.circle(video_frame, center_coordinates, radius, color[count], thickness)
-                # cv2.imshow('Gestures App', video_frame)
-                # cv2.waitKey(1)
+                video_frame = cv2.circle(video_frame, center_coordinates, radius, color[count], thickness)
+                cv2.imshow('Gestures App', video_frame)
+                cv2.waitKey(1)
 
     def stop(self):
         self.video_cap.release()
