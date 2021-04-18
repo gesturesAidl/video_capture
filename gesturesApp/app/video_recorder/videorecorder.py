@@ -41,7 +41,7 @@ class VideoRecorder:
             tempResp = self.rabbit_template.get_response()
             if tempResp != None:
                 x = json.loads(json.loads(tempResp))
-                cv2.putText(video_frame, str(x["label"]), (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 3, (255, 0, 255),2)
+                cv2.putText(video_frame, str(x["label"]), (100, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255),2)
             
             video_frame = cv2.circle(video_frame, center_coordinates, radius, color[count], thickness)
             
