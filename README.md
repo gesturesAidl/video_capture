@@ -1,6 +1,6 @@
-# Gestures recognition app
+# VIDEO GESTURES CAPTURE  
 
-## Installation
+## HOW TO RUN THE PROGRAM - video_capture
 
 ### Create Miniconda environment
 
